@@ -89,6 +89,21 @@
 			opacity:0.3;
 			pointer-events:none;
 		}
+		#footer{
+			position:absolute;
+			bottom:0;
+			left:0;
+			width:100vw;
+			font-size:14px;
+			text-align:center;
+			color:#f5deb3 !important;
+		}
+		#footer > *{
+			font-size:14px !important;
+			color:#f5deb3 !important;
+			opacity:0.3;
+			text-decoration:none;
+		}
 	</style>
 	<script>
 		/**
@@ -111,6 +126,7 @@
 		<input type="submit" id="work" style="display:none;">
 		<p id="status" class="disabled" style="margin:0;font-size:16px;">Ready.</p>
 	</div>
+	<p id="footer"><a href="https://github.com/Picocrypt/Picocrypt">What is Picocrypt?</a><span>&nbsp;|&nbsp;</span><a href="https://github.com/Picocrypt/picocrypt.github.io/releases/download/1.49/index.html">Save offline .html</a></p>
 	<script>
 		(() => {
 			"use strict";
