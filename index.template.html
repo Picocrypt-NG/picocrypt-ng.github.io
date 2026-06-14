@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Picocrypt NG</title>
+	<meta charset="UTF-8">
+	<meta name="robots" content="noindex,nofollow">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDAiIGhlaWdodD0iMTQwIiBvdmVyZmxvdz0iaGlkZGVuIj48ZGVmcz48Y2xpcFBhdGggaWQ9IkEiPjxwYXRoIGQ9Ik0xNDMgMTE4aDE0MHYxNDBIMTQzeiIvPjwvY2xpcFBhdGg+PGxpbmVhckdyYWRpZW50IHgxPSIxNDMiIHkxPSIxODgiIHgyPSIyODMiIHkyPSIxODgiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBzcHJlYWRNZXRob2Q9InBhZCIgaWQ9IkIiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzAwZjJmZSIvPjxzdG9wIG9mZnNldD0iLjAyMSIgc3RvcC1jb2xvcj0iIzAzZWZmZSIvPjxzdG9wIG9mZnNldD0iLjI5MyIgc3RvcC1jb2xvcj0iIzI0ZDJmZSIvPjxzdG9wIG9mZnNldD0iLjU1NCIgc3RvcC1jb2xvcj0iIzNjYmRmZSIvPjxzdG9wIG9mZnNldD0iLjc5NiIgc3RvcC1jb2xvcj0iIzRhYjBmZSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzRmYWNmZSIvPjwvbGluZWFyR3JhZGllbnQ+PGZpbHRlciBpZD0iaHVlUm90YXRlMjcwIj48ZmVDb2xvck1hdHJpeCB0eXBlPSJodWVSb3RhdGUiIHZhbHVlcz0iMjcwIi8+PC9maWx0ZXI+PC9kZWZzPjxnIGNsaXAtcGF0aD0idXJsKCNBKSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTE0MyAtMTE4KSI+PHBhdGggZD0iTTIzMy43ODEgMTU2LjI5NmMwLTQuODMyIDMuOTE4LTguNzUgOC43NS04Ljc1YTguNzUgOC43NSAwIDEgMSAwIDE3LjUgOC43NSA4Ljc1IDAgMCAxLTguNzUtOC43NXpNMTc4IDI1Mi41MTN2LTkuODQ0aDkuODQ0YTUuNDcgNS40NyAwIDAgMCA1LjQ2OC01LjQ2OXYtOS44NDNoOS44NDRhNS40NyA1LjQ3IDAgMCAwIDUuNDY5LTUuNDY5IDUuNDcgNS40NyAwIDAgMC01LjQ2OS01LjQ2OWgtMTUuMzEyYTUuNDcgNS40NyAwIDAgMC01LjQ2OSA1LjQ2OXY5Ljg0NGgtOS44NDRhNS40NyA1LjQ3IDAgMCAwLTUuNDY5IDUuNDY5djkuODQzaC0xMy4xMjR2LTE2LjMyOGw0OC40OTQtNDguNDk1YTUuNDcgNS40NyAwIDAgMCAuODA5LTYuNzA0IDg4LjUzIDg4LjUzIDAgMCAxLTUuMTc0LTkuOTIyYy0xLjgwNC00LjA1OC0uODg1LTguOTA2IDIuMjg4LTEyLjA2M2wyMS40NzUtMjEuMzc1YzMuMDY1LTMuMDUxIDcuNjU5LTQuMDI0IDExLjcwMi0yLjQ3OSA2LjM1IDIuNDI3IDE1LjUwMSA2Ljg5NCAyMy4wMzkgMTQuMzk3IDcuNTg0IDcuNTQ4IDEyLjIwMSAxNi44MzQgMTQuNzM4IDIzLjI5NmExMC44NiAxMC44NiAwIDAgMS0yLjQ1MSAxMS42NzJsLTIxLjczNSAyMS42MzNjLTMuMTY0IDMuMTUtNy44ODkgNC4wNy0xMi4wMzUgMi4zNDYtMy40Mi0xLjQyMy02LjczMi0zLjExMi05Ljg0NC01LjAyMmE1LjQ3IDUuNDcgMCAwIDAtNy41MjEgMS44IDUuNDcgNS40NyAwIDAgMCAxLjggNy41MjJjMy41OTYgMi4yMDcgNy40MiA0LjE1OCAxMS4zNjQgNS43OTggOC4yNDIgMy40MjkgMTcuNjQzIDEuNTg2IDIzLjk1Mi00LjY5MmwyMS43MzQtMjEuNjMyYzYuMTY1LTYuMTM2IDguMDk1LTE1LjMzIDQuOTE3LTIzLjQyMy0yLjkyMS03LjQzNS04LjI3Ni0xOC4xNjUtMTcuMjA0LTI3LjA1LTguODk2LTguODU1LTE5LjUxMS0xNC4wNTctMjYuODUtMTYuODYyYTIxLjk5IDIxLjk5IDAgMCAwLTIzLjMyMyA0Ljk0NGwtMjEuNDc1IDIxLjM3NWMtNi4zNjYgNi4zMzYtOC4yIDE2LjA4NS00LjU2NiAyNC4yNTkgMS4xMjcgMi41MzUgMi4zNTMgNS4wMTUgMy42NjMgNy40MTFsLTQ3LjEzMyA0Ny4xMzNhNS40NyA1LjQ3IDAgMCAwLTEuNjAyIDMuODY4djI0LjA2MmE1LjQ3IDUuNDcgMCAwIDAgNS40NjkgNS40NjloMjQuMDYyYTUuNDcgNS40NyAwIDAgMCA1LjQ2OS01LjQ2OXoiIGZpbGw9InVybCgjQikiIGZpbHRlcj0idXJsKCNodWVSb3RhdGUyNzApIi8+PC9nPjwvc3ZnPg==">
+	<style>
+		*{
+			font-family:"Segoe UI",Arial,sans-serif;
+			color:#f5deb3;
+			user-select:none;
+		}
+		body{
+			margin:0;
+			padding:0;
+			display:flex;
+			justify-content:center;
+			align-items:center;
+			width:100vw;
+			height:100vh;
+			background-color:#1d1f21;
+		}
+		body > div{
+			display:flex;
+			flex-direction:column;
+			align-items:center;
+			width:320px;
+		}
+		body > div > div{
+			display:flex;
+			align-items:center;
+			justify-content:center;
+			width:300px;
+			height:80px;
+			box-sizing:border-box;
+			margin-bottom:12px;
+			background-color:#30343c;
+			border-radius:6px;
+			font-size:17px;
+			cursor:pointer;
+		}
+		body > div > div > p{
+			text-overflow:ellipsis;
+			white-space:nowrap;
+			overflow:hidden;
+			width:80%;
+			text-align:center;
+		}
+		input[type="password"]{
+			width:300px;
+			height:32px;
+			box-sizing:border-box;
+			padding:4px 8px;
+			margin-bottom:12px;
+			border:none;
+			border-radius:6px;
+			outline:none;
+			background-color:#30343c;
+			color:#f5deb3;
+			font-size:16px;
+			font-family:inherit;
+		}
+		input[type="password"]::placeholder{
+			color:#f5deb347;
+		}
+		input[type="submit"]{
+			width:300px;
+			height:32px;
+			margin-bottom:6px;
+			border:none;
+			border-radius:6px;
+			outline:none;
+			background-color:#30343c;
+			color:#f5deb3;
+			font-size:16px;
+			font-family:inherit;
+			cursor:pointer;
+		}
+		.disabled{
+			opacity:0.3;
+			pointer-events:none;
+		}
+		#footer{
+			position:absolute;
+			bottom:0;
+			left:0;
+			width:100vw;
+			font-size:14px;
+			text-align:center;
+			color:#f5deb3 !important;
+		}
+		#footer > *{
+			font-size:14px !important;
+			color:#f5deb3 !important;
+			opacity:0.3;
+			text-decoration:none;
+		}
+		#notice{
+			font-size:11px;
+			opacity:0.5;
+			text-align:center;
+			margin-bottom:8px;
+		}
+	</style>
+	<script>
+__WASM_EXEC_JS__
+	</script>
+</head>
+<body>
+	<input id="fin" type="file" style="display:none;">
+	<div>
+		<div><p>Click here to select a file.</p></div>
+		<input type="password" id="password" class="disabled" placeholder="Password" autocomplete="off"><br>
+		<input type="password" id="cpassword" class="disabled" placeholder="Confirm" autocomplete="off"><br>
+		<input type="submit" id="start" class="disabled" value="Start">
+		<p id="status" class="disabled" style="margin:0;font-size:16px;">Ready.</p>
+		<p id="notice">Argon2 uses 1 GiB RAM. May take 5-10 seconds.</p>
+	</div>
+	<p id="footer"><a href="https://github.com/picocrypt-ng/Picocrypt-NG">What is Picocrypt NG?</a></p>
+	<script>
+		(() => {
+			"use strict";
+
+			if (!WebAssembly || !WebAssembly.instantiate || !window.crypto || !window.crypto.getRandomValues) {
+				document.body.innerHTML = "<h1>Unsupported browser!</h1>";
+				return;
+			}
+
+			let wasmReady = false;
+			let selectedFile = null;
+
+			// UI elements
+			const fileInput = document.getElementById("fin");
+			const fileBox = document.querySelector("body > div > div");
+			const fileLabel = document.querySelector("body > div > div > p");
+			const passwordInput = document.getElementById("password");
+			const confirmInput = document.getElementById("cpassword");
+			const startButton = document.getElementById("start");
+			const statusText = document.getElementById("status");
+
+			// File selection
+			fileBox.onclick = () => fileInput.click();
+			fileInput.onchange = function() {
+				if (this.files.length > 0) {
+					selectedFile = this.files[0];
+					if (selectedFile.size > 512 * 1024 * 1024) { // 512 MiB
+						statusText.innerHTML = "File must be less than 512 MiB!";
+						statusText.style.color = "#db2828";
+						selectedFile = null;
+						return;
+					}
+					fileLabel.innerHTML = selectedFile.name;
+					const isDecrypt = selectedFile.name.endsWith(".pcv");
+					passwordInput.classList.remove("disabled");
+					if (!isDecrypt) confirmInput.classList.remove("disabled");
+					statusText.classList.remove("disabled");
+					passwordInput.focus();
+					checkPasswords();
+				}
+			};
+
+			// Password validation
+			function checkPasswords() {
+				const pwd = passwordInput.value;
+				const cpwd = confirmInput.value;
+				const isDecrypt = selectedFile && selectedFile.name.endsWith(".pcv");
+				
+				if (isDecrypt) {
+					// For decryption, only need password
+					if (pwd.length > 0 && wasmReady) {
+						startButton.classList.remove("disabled");
+					} else {
+						startButton.classList.add("disabled");
+					}
+				} else {
+					// For encryption, need matching passwords
+					if (pwd.length > 0 && pwd === cpwd && wasmReady) {
+						startButton.classList.remove("disabled");
+					} else {
+						startButton.classList.add("disabled");
+					}
+				}
+			}
+
+			passwordInput.oninput = checkPasswords;
+			confirmInput.oninput = checkPasswords;
+
+			// Process file
+			startButton.onclick = async () => {
+				if (!selectedFile || !wasmReady) return;
+
+				// Disable UI
+				fileBox.classList.add("disabled");
+				passwordInput.classList.add("disabled");
+				confirmInput.classList.add("disabled");
+				startButton.classList.add("disabled");
+				statusText.innerHTML = "Working... (Argon2 may take a while)";
+				statusText.style.color = "#f5deb3";
+
+				// Read file
+				const fileData = new Uint8Array(await selectedFile.arrayBuffer());
+				const password = passwordInput.value;
+				const isDecrypt = selectedFile.name.endsWith(".pcv");
+
+				// Small delay to let UI update
+				await new Promise(r => setTimeout(r, 100));
+
+				let result;
+				try {
+					if (isDecrypt) {
+						result = picocryptDecrypt(fileData, password);
+					} else {
+						result = picocryptEncrypt(fileData, password);
+					}
+				} catch (e) {
+					console.error(e);
+					result = 1;
+				}
+
+				// Handle result
+				if (typeof result === "number") {
+					// Error code
+					fileBox.classList.remove("disabled");
+					passwordInput.classList.remove("disabled");
+					if (!isDecrypt) confirmInput.classList.remove("disabled");
+					startButton.classList.remove("disabled");
+					
+					const errors = {
+						1: "Unsupported volume (keyfiles/deniability not supported in web).",
+						2: "Corrupted header.",
+						3: "Incorrect password.",
+						4: "Data is modified or corrupted.",
+						5: "Unable to generate random values."
+					};
+					statusText.innerHTML = errors[result] || "Unknown error.";
+					statusText.style.color = "#db2828";
+					return;
+				}
+
+				// Success - download result
+				const outputData = result.slice(1); // Skip success byte
+				const blob = new Blob([outputData]);
+				const a = document.createElement("a");
+				a.href = URL.createObjectURL(blob);
+				
+				if (isDecrypt) {
+					a.download = selectedFile.name.replace(".pcv", "");
+				} else {
+					a.download = selectedFile.name + ".pcv";
+				}
+				
+				document.body.appendChild(a);
+				a.click();
+				a.remove();
+				URL.revokeObjectURL(a.href);
+
+				// Reset UI
+				fileLabel.innerHTML = "Click here to select a file.";
+				passwordInput.value = "";
+				confirmInput.value = "";
+				statusText.innerHTML = "Completed!";
+				statusText.style.color = "#44b944";
+				selectedFile = null;
+
+				setTimeout(() => {
+					window.location.reload();
+				}, 3000);
+			};
+
+			// Load WASM
+			const go = new Go();
+			const wasmBase64 = "__WASM_BASE64__";
+			const wasmBinary = Uint8Array.from(atob(wasmBase64), c => c.charCodeAt(0));
+			WebAssembly.instantiate(wasmBinary, go.importObject).then(result => {
+				go.run(result.instance);
+				wasmReady = true;
+				checkPasswords();
+			});
+		})();
+	</script>
+</body>
+</html>
