@@ -170,7 +170,7 @@ __WASM_EXEC_JS__
 					fileLabel.innerHTML = selectedFile.name;
 					const isDecrypt = selectedFile.name.endsWith(".pcv");
 					encOptions.style.display = isDecrypt ? "none" : "block";
-					decComments.innerHTML = "";
+					decComments.textContent = "";
 					passwordInput.classList.remove("disabled");
 					if (!isDecrypt) confirmInput.classList.remove("disabled");
 					statusText.classList.remove("disabled");
@@ -213,7 +213,7 @@ __WASM_EXEC_JS__
 				passwordInput.classList.add("disabled");
 				confirmInput.classList.add("disabled");
 				startButton.classList.add("disabled");
-				decComments.innerHTML = "";
+				decComments.textContent = "";
 				statusText.innerHTML = "Working... (Argon2 may take a while)";
 				statusText.style.color = "#f5deb3";
 
@@ -270,7 +270,7 @@ __WASM_EXEC_JS__
 				URL.revokeObjectURL(a.href);
 
 				if (isDecrypt && res.comments) {
-					decComments.innerHTML = "Comments: " + res.comments.replace(/[<>&]/g, c => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c]));
+					decComments.textContent = "Comments: " + res.comments;
 				}
 
 				fileLabel.innerHTML = "Click here to select a file.";
