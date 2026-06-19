@@ -54,10 +54,10 @@ echo "Using shim: $WASM_EXEC ($(go env GOVERSION))"
 base64 -w0 "$WORK/picocrypt.wasm" > "$WORK/wasm.b64"
 
 echo "Injecting into template..."
-awk -v exec_file="$WASM_EXEC" -v b64_file="$WORK/wasm.b64" '
+awk -v exec_file="$WASM_EXEC" -v b64_file="$WORK/wasm.b64" -v version="$VERSION" '
   /__WASM_EXEC_JS__/ { while ((getline line < exec_file) > 0) print line; close(exec_file); next }
   /__WASM_BASE64__/  { getline b64 < b64_file; close(b64_file); print "\t\t\tconst wasmBase64 = \"" b64 "\";"; next }
-  { print }
+  { gsub(/__PICOCRYPT_VERSION__/, version); print }
 ' "$TEMPLATE" > "$OUT"
 
 echo "Wrote $OUT ($(wc -c < "$OUT") bytes) for Picocrypt-NG $VERSION."
