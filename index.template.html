@@ -186,7 +186,7 @@ __WASM_EXEC_JS__
 						selectedFile = null;
 						return;
 					}
-					fileLabel.innerHTML = selectedFile.name;
+					fileLabel.textContent = selectedFile.name;
 					const isDecrypt = selectedFile.name.endsWith(".pcv");
 					encOptions.style.display = isDecrypt ? "none" : "block";
 					decKeyfiles.style.display = isDecrypt ? "block" : "none";
@@ -297,7 +297,7 @@ __WASM_EXEC_JS__
 					decComments.textContent = "Comments: " + res.comments;
 				}
 
-				fileLabel.innerHTML = "Click here to select a file.";
+				fileLabel.textContent = "Click here to select a file.";
 				passwordInput.value = "";
 				confirmInput.value = "";
 				commentsInput.value = "";
