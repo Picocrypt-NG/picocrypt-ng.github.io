@@ -228,11 +228,12 @@ __WASM_EXEC_JS__
 					startButton.classList.remove("disabled");
 					
 					const errors = {
-						1: "Unsupported volume (keyfiles/deniability not supported in web).",
-						2: "Corrupted header.",
+						1: "Unsupported volume: keyfiles, paranoid mode, Reed-Solomon, or splitting. Use the desktop app.",
+						2: "Corrupted header, or a deniability volume (open those in the desktop app).",
 						3: "Incorrect password.",
 						4: "Data is modified or corrupted.",
-						5: "Unable to generate random values."
+						5: "Unable to generate random values.",
+						6: "Invalid input."
 					};
 					statusText.innerHTML = errors[result] || "Unknown error.";
 					statusText.style.color = "#db2828";
