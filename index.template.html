@@ -114,8 +114,20 @@ __WASM_EXEC_JS__
 		<div><p>Click here to select a file.</p></div>
 		<input type="password" id="password" class="disabled" placeholder="Password" autocomplete="off"><br>
 		<input type="password" id="cpassword" class="disabled" placeholder="Confirm" autocomplete="off"><br>
+		<details id="advanced" style="width:300px;margin-bottom:12px;">
+			<summary style="cursor:pointer;font-size:14px;opacity:0.7;">Advanced</summary>
+			<div id="encOptions" style="margin-top:8px;">
+				<label style="display:block;font-size:14px;margin-bottom:6px;cursor:pointer;">
+					<input type="checkbox" id="paranoid"> Paranoid mode (slower, stronger)
+				</label>
+				<textarea id="comments" placeholder="Comments (optional)" maxlength="99999"
+					style="width:300px;height:54px;box-sizing:border-box;padding:4px 8px;border:none;border-radius:6px;outline:none;background-color:#30343c;color:#f5deb3;font-size:14px;font-family:inherit;resize:vertical;"></textarea>
+				<p style="font-size:11px;opacity:0.5;margin:4px 0 0;">Comments are stored <b>unencrypted</b> in the file.</p>
+			</div>
+		</details>
 		<input type="submit" id="start" class="disabled" value="Start">
 		<p id="status" class="disabled" style="margin:0;font-size:16px;">Ready.</p>
+		<p id="decComments" style="margin:4px 0 0;font-size:13px;opacity:0.7;"></p>
 		<p id="notice">Argon2 uses 1 GiB RAM. May take 5-10 seconds.</p>
 	</div>
 	<p id="footer"><a href="https://github.com/picocrypt-ng/Picocrypt-NG">What is Picocrypt NG?</a> <a href="https://github.com/picocrypt-ng/Picocrypt-NG/releases/tag/__PICOCRYPT_VERSION__">v__PICOCRYPT_VERSION__</a></p>
@@ -139,20 +151,27 @@ __WASM_EXEC_JS__
 			const confirmInput = document.getElementById("cpassword");
 			const startButton = document.getElementById("start");
 			const statusText = document.getElementById("status");
+			const advanced = document.getElementById("advanced");
+			const encOptions = document.getElementById("encOptions");
+			const paranoidInput = document.getElementById("paranoid");
+			const commentsInput = document.getElementById("comments");
+			const decComments = document.getElementById("decComments");
 
 			// File selection
 			fileBox.onclick = () => fileInput.click();
 			fileInput.onchange = function() {
 				if (this.files.length > 0) {
 					selectedFile = this.files[0];
-					if (selectedFile.size > 512 * 1024 * 1024) { // 512 MiB
-						statusText.innerHTML = "File must be less than 512 MiB!";
+					if (selectedFile.size > 1024 * 1024 * 1024) { // 1 GiB
+						statusText.innerHTML = "File must be less than 1 GiB!";
 						statusText.style.color = "#db2828";
 						selectedFile = null;
 						return;
 					}
 					fileLabel.innerHTML = selectedFile.name;
 					const isDecrypt = selectedFile.name.endsWith(".pcv");
+					encOptions.style.display = isDecrypt ? "none" : "block";
+					decComments.innerHTML = "";
 					passwordInput.classList.remove("disabled");
 					if (!isDecrypt) confirmInput.classList.remove("disabled");
 					statusText.classList.remove("disabled");
@@ -191,83 +210,78 @@ __WASM_EXEC_JS__
 			startButton.onclick = async () => {
 				if (!selectedFile || !wasmReady) return;
 
-				// Disable UI
 				fileBox.classList.add("disabled");
 				passwordInput.classList.add("disabled");
 				confirmInput.classList.add("disabled");
 				startButton.classList.add("disabled");
+				decComments.innerHTML = "";
 				statusText.innerHTML = "Working... (Argon2 may take a while)";
 				statusText.style.color = "#f5deb3";
 
-				// Read file
 				const fileData = new Uint8Array(await selectedFile.arrayBuffer());
 				const password = passwordInput.value;
 				const isDecrypt = selectedFile.name.endsWith(".pcv");
 
-				// Small delay to let UI update
 				await new Promise(r => setTimeout(r, 100));
 
-				let result;
+				let res;
 				try {
 					if (isDecrypt) {
-						result = picocryptDecrypt(fileData, password);
+						res = picocryptDecrypt({ data: fileData, password: password });
 					} else {
-						result = picocryptEncrypt(fileData, password);
+						res = picocryptEncrypt({
+							data: fileData,
+							password: password,
+							paranoid: paranoidInput.checked,
+							comments: commentsInput.value
+						});
 					}
 				} catch (e) {
 					console.error(e);
-					result = 1;
+					res = { code: -1 };
 				}
 
-				// Handle result
-				if (typeof result === "number") {
-					// Error code
+				if (!res || res.code !== 0) {
 					fileBox.classList.remove("disabled");
 					passwordInput.classList.remove("disabled");
 					if (!isDecrypt) confirmInput.classList.remove("disabled");
 					startButton.classList.remove("disabled");
-					
+
 					const errors = {
-						1: "Unsupported volume: keyfiles, paranoid mode, Reed-Solomon, or splitting. Use the desktop app.",
+						1: "Unsupported volume: keyfiles, Reed-Solomon, or splitting. Use the desktop app.",
 						2: "Corrupted header, or a deniability volume (open those in the desktop app).",
 						3: "Incorrect password.",
 						4: "Data is modified or corrupted.",
 						5: "Unable to generate random values.",
 						6: "Invalid input."
 					};
-					statusText.innerHTML = errors[result] || "Unknown error.";
+					statusText.innerHTML = errors[res ? res.code : -1] || "Unknown error.";
 					statusText.style.color = "#db2828";
 					return;
 				}
 
-				// Success - download result
-				const outputData = result.slice(1); // Skip success byte
+				const outputData = res.data;
 				const blob = new Blob([outputData]);
 				const a = document.createElement("a");
 				a.href = URL.createObjectURL(blob);
-				
-				if (isDecrypt) {
-					a.download = selectedFile.name.replace(".pcv", "");
-				} else {
-					a.download = selectedFile.name + ".pcv";
-				}
-				
+				a.download = isDecrypt ? selectedFile.name.replace(".pcv", "") : selectedFile.name + ".pcv";
 				document.body.appendChild(a);
 				a.click();
 				a.remove();
 				URL.revokeObjectURL(a.href);
 
-				// Reset UI
+				if (isDecrypt && res.comments) {
+					decComments.innerHTML = "Comments: " + res.comments.replace(/[<>&]/g, c => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c]));
+				}
+
 				fileLabel.innerHTML = "Click here to select a file.";
 				passwordInput.value = "";
 				confirmInput.value = "";
+				commentsInput.value = "";
+				paranoidInput.checked = false;
 				statusText.innerHTML = "Completed!";
 				statusText.style.color = "#44b944";
 				selectedFile = null;
-
-				setTimeout(() => {
-					window.location.reload();
-				}, 3000);
 			};
 
 			// Load WASM
