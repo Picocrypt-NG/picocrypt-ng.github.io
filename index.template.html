@@ -123,6 +123,15 @@ __WASM_EXEC_JS__
 				<textarea id="comments" placeholder="Comments (optional)" maxlength="99999"
 					style="width:300px;height:54px;box-sizing:border-box;padding:4px 8px;border:none;border-radius:6px;outline:none;background-color:#30343c;color:#f5deb3;font-size:14px;font-family:inherit;resize:vertical;"></textarea>
 				<p style="font-size:11px;opacity:0.5;margin:4px 0 0;">Comments are stored <b>unencrypted</b> in the file.</p>
+				<label style="display:block;font-size:14px;margin:8px 0 6px;cursor:pointer;">Keyfiles (optional)</label>
+				<input type="file" id="keyfiles" multiple style="width:300px;font-size:13px;color:#f5deb3;">
+				<label style="display:block;font-size:14px;margin:6px 0;cursor:pointer;">
+					<input type="checkbox" id="keyfileOrdered"> Require correct keyfile order
+				</label>
+			</div>
+			<div id="decKeyfiles" style="display:none;margin-top:8px;">
+				<label style="display:block;font-size:14px;margin-bottom:6px;cursor:pointer;">Keyfiles (if this volume uses them)</label>
+				<input type="file" id="keyfilesDec" multiple style="width:300px;font-size:13px;color:#f5deb3;">
 			</div>
 		</details>
 		<input type="submit" id="start" class="disabled" value="Start">
@@ -155,6 +164,16 @@ __WASM_EXEC_JS__
 			const paranoidInput = document.getElementById("paranoid");
 			const commentsInput = document.getElementById("comments");
 			const decComments = document.getElementById("decComments");
+			const keyfilesInput = document.getElementById("keyfiles");
+			const keyfileOrderedInput = document.getElementById("keyfileOrdered");
+			const decKeyfiles = document.getElementById("decKeyfiles");
+			const keyfilesDecInput = document.getElementById("keyfilesDec");
+
+			async function readKeyfiles(input) {
+				const out = [];
+				for (const f of input.files) out.push(new Uint8Array(await f.arrayBuffer()));
+				return out;
+			}
 
 			// File selection
 			fileBox.onclick = () => fileInput.click();
@@ -167,9 +186,10 @@ __WASM_EXEC_JS__
 						selectedFile = null;
 						return;
 					}
-					fileLabel.innerHTML = selectedFile.name;
+					fileLabel.textContent = selectedFile.name;
 					const isDecrypt = selectedFile.name.endsWith(".pcv");
 					encOptions.style.display = isDecrypt ? "none" : "block";
+					decKeyfiles.style.display = isDecrypt ? "block" : "none";
 					decComments.textContent = "";
 					passwordInput.classList.remove("disabled");
 					if (!isDecrypt) confirmInput.classList.remove("disabled");
@@ -226,13 +246,14 @@ __WASM_EXEC_JS__
 				let res;
 				try {
 					if (isDecrypt) {
-						res = picocryptDecrypt({ data: fileData, password: password });
+						const kf = await readKeyfiles(keyfilesDecInput);
+						res = picocryptDecrypt({ data: fileData, password: password, keyfiles: kf });
 					} else {
+						const kf = await readKeyfiles(keyfilesInput);
 						res = picocryptEncrypt({
-							data: fileData,
-							password: password,
-							paranoid: paranoidInput.checked,
-							comments: commentsInput.value
+							data: fileData, password: password,
+							paranoid: paranoidInput.checked, comments: commentsInput.value,
+							keyfiles: kf, keyfileOrdered: keyfileOrderedInput.checked
 						});
 					}
 				} catch (e) {
@@ -247,12 +268,15 @@ __WASM_EXEC_JS__
 					startButton.classList.remove("disabled");
 
 					const errors = {
-						1: "Unsupported volume: keyfiles, Reed-Solomon, or splitting. Use the desktop app.",
+						1: "Unsupported volume: Reed-Solomon, splitting, or a legacy keyfile volume. Use the desktop app.",
 						2: "Corrupted header, or a deniability volume (open those in the desktop app).",
 						3: "Incorrect password.",
 						4: "Data is modified or corrupted.",
 						5: "Unable to generate random values.",
-						6: "Invalid input."
+						6: "Invalid input.",
+						7: "This volume requires keyfiles. Add them under Advanced and try again.",
+						8: "Incorrect keyfiles for this volume.",
+						9: "Those keyfiles cancel out (duplicate). Use distinct keyfiles."
 					};
 					statusText.innerHTML = errors[res ? res.code : -1] || "Unknown error.";
 					statusText.style.color = "#db2828";
@@ -273,11 +297,14 @@ __WASM_EXEC_JS__
 					decComments.textContent = "Comments: " + res.comments;
 				}
 
-				fileLabel.innerHTML = "Click here to select a file.";
+				fileLabel.textContent = "Click here to select a file.";
 				passwordInput.value = "";
 				confirmInput.value = "";
 				commentsInput.value = "";
 				paranoidInput.checked = false;
+				keyfilesInput.value = "";
+				keyfilesDecInput.value = "";
+				keyfileOrderedInput.checked = false;
 				statusText.innerHTML = "Completed!";
 				statusText.style.color = "#44b944";
 				selectedFile = null;
