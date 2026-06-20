@@ -135,6 +135,9 @@ __WASM_EXEC_JS__
 			<div id="decKeyfiles" style="display:none;margin-top:8px;">
 				<label style="display:block;font-size:14px;margin-bottom:6px;cursor:pointer;">Keyfiles (if this volume uses them)</label>
 				<input type="file" id="keyfilesDec" multiple style="width:300px;font-size:13px;color:#f5deb3;">
+				<label style="display:block;font-size:14px;margin:8px 0 6px;cursor:pointer;">
+					<input type="checkbox" id="forceDecrypt"> Force decrypt (output may be corrupted / untrusted)
+				</label>
 			</div>
 		</details>
 		<input type="submit" id="start" class="disabled" value="Start">
@@ -172,6 +175,7 @@ __WASM_EXEC_JS__
 			const reedSolomonInput = document.getElementById("reedSolomon");
 			const decKeyfiles = document.getElementById("decKeyfiles");
 			const keyfilesDecInput = document.getElementById("keyfilesDec");
+			const forceDecryptInput = document.getElementById("forceDecrypt");
 
 			async function readKeyfiles(input) {
 				const out = [];
@@ -251,7 +255,7 @@ __WASM_EXEC_JS__
 				try {
 					if (isDecrypt) {
 						const kf = await readKeyfiles(keyfilesDecInput);
-						res = picocryptDecrypt({ data: fileData, password: password, keyfiles: kf });
+						res = picocryptDecrypt({ data: fileData, password: password, keyfiles: kf, forceDecrypt: forceDecryptInput.checked });
 					} else {
 						const kf = await readKeyfiles(keyfilesInput);
 						res = picocryptEncrypt({
@@ -266,7 +270,8 @@ __WASM_EXEC_JS__
 					res = { code: -1 };
 				}
 
-				if (!res || res.code !== 0) {
+				const kept = res && res.code === 10;
+				if (!res || (res.code !== 0 && !kept)) {
 					fileBox.classList.remove("disabled");
 					passwordInput.classList.remove("disabled");
 					if (!isDecrypt) confirmInput.classList.remove("disabled");
@@ -281,7 +286,8 @@ __WASM_EXEC_JS__
 						6: "Invalid input.",
 						7: "This volume requires keyfiles. Add them under Advanced and try again.",
 						8: "Incorrect keyfiles for this volume.",
-						9: "Those keyfiles cancel out (duplicate). Use distinct keyfiles."
+						9: "Those keyfiles cancel out (duplicate). Use distinct keyfiles.",
+						10: "Decrypted but NOT verified — data may be corrupted or tampered."
 					};
 					statusText.innerHTML = errors[res ? res.code : -1] || "Unknown error.";
 					statusText.style.color = "#db2828";
@@ -313,6 +319,11 @@ __WASM_EXEC_JS__
 				reedSolomonInput.checked = false;
 				statusText.innerHTML = "Completed!";
 				statusText.style.color = "#44b944";
+					forceDecryptInput.checked = false;
+					if (kept) {
+						statusText.innerHTML = "Decrypted, but NOT verified — output may be corrupted.";
+						statusText.style.color = "#db2828";
+					}
 				selectedFile = null;
 			};
 
