@@ -314,6 +314,9 @@ __WASM_EXEC_JS__
 				}
 
 				fileLabel.textContent = "Click here to select a file.";
+				// Re-enable the file box so a new operation can start without a page
+				// reload (the error path already does this; the success path must too).
+				fileBox.classList.remove("disabled");
 				passwordInput.value = "";
 				confirmInput.value = "";
 				commentsInput.value = "";
