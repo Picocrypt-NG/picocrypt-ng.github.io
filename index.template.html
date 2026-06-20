@@ -131,6 +131,9 @@ __WASM_EXEC_JS__
 				<label style="display:block;font-size:14px;margin:6px 0;cursor:pointer;">
 					<input type="checkbox" id="reedSolomon"> Reed-Solomon (adds error correction, ~6% larger)
 				</label>
+				<label style="display:block;margin-top:8px;cursor:pointer;" title="Hides that this file is a Picocrypt volume — it looks like random data. Only use this if you know what it does. The file cannot be auto-detected as encrypted.">
+					<input type="checkbox" id="deniability"> Deniability (disguise as random data)
+				</label>
 			</div>
 			<div id="decKeyfiles" style="display:none;margin-top:8px;">
 				<label style="display:block;font-size:14px;margin-bottom:6px;cursor:pointer;">Keyfiles (if this volume uses them)</label>
@@ -173,6 +176,7 @@ __WASM_EXEC_JS__
 			const keyfilesInput = document.getElementById("keyfiles");
 			const keyfileOrderedInput = document.getElementById("keyfileOrdered");
 			const reedSolomonInput = document.getElementById("reedSolomon");
+			const deniabilityInput = document.getElementById("deniability");
 			const decKeyfiles = document.getElementById("decKeyfiles");
 			const keyfilesDecInput = document.getElementById("keyfilesDec");
 			const forceDecryptInput = document.getElementById("forceDecrypt");
@@ -262,8 +266,9 @@ __WASM_EXEC_JS__
 							data: fileData, password: password,
 							paranoid: paranoidInput.checked, comments: commentsInput.value,
 							keyfiles: kf, keyfileOrdered: keyfileOrderedInput.checked,
-							reedSolomon: reedSolomonInput.checked
-						});
+							reedSolomon: reedSolomonInput.checked,
+						deniability: deniabilityInput.checked
+					});
 					}
 				} catch (e) {
 					console.error(e);
@@ -278,8 +283,8 @@ __WASM_EXEC_JS__
 					startButton.classList.remove("disabled");
 
 					const errors = {
-						1: "Unsupported volume: splitting, deniability, or a legacy keyfile volume. Use the desktop app.",
-						2: "Corrupted header, or a deniability volume (open those in the desktop app).",
+						1: "Unsupported volume: splitting or a legacy keyfile volume. Use the desktop app.",
+						2: "Corrupted or incomplete header.",
 						3: "Incorrect password.",
 						4: "Data is modified or corrupted.",
 						5: "Unable to generate random values.",
@@ -317,6 +322,7 @@ __WASM_EXEC_JS__
 				keyfilesDecInput.value = "";
 				keyfileOrderedInput.checked = false;
 				reedSolomonInput.checked = false;
+				deniabilityInput.checked = false;
 				statusText.innerHTML = "Completed!";
 				statusText.style.color = "#44b944";
 					forceDecryptInput.checked = false;
