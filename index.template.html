@@ -128,6 +128,9 @@ __WASM_EXEC_JS__
 				<label style="display:block;font-size:14px;margin:6px 0;cursor:pointer;">
 					<input type="checkbox" id="keyfileOrdered"> Require correct keyfile order
 				</label>
+				<label style="display:block;font-size:14px;margin:6px 0;cursor:pointer;">
+					<input type="checkbox" id="reedSolomon"> Reed-Solomon (adds error correction, ~6% larger)
+				</label>
 			</div>
 			<div id="decKeyfiles" style="display:none;margin-top:8px;">
 				<label style="display:block;font-size:14px;margin-bottom:6px;cursor:pointer;">Keyfiles (if this volume uses them)</label>
@@ -166,6 +169,7 @@ __WASM_EXEC_JS__
 			const decComments = document.getElementById("decComments");
 			const keyfilesInput = document.getElementById("keyfiles");
 			const keyfileOrderedInput = document.getElementById("keyfileOrdered");
+			const reedSolomonInput = document.getElementById("reedSolomon");
 			const decKeyfiles = document.getElementById("decKeyfiles");
 			const keyfilesDecInput = document.getElementById("keyfilesDec");
 
@@ -253,7 +257,8 @@ __WASM_EXEC_JS__
 						res = picocryptEncrypt({
 							data: fileData, password: password,
 							paranoid: paranoidInput.checked, comments: commentsInput.value,
-							keyfiles: kf, keyfileOrdered: keyfileOrderedInput.checked
+							keyfiles: kf, keyfileOrdered: keyfileOrderedInput.checked,
+							reedSolomon: reedSolomonInput.checked
 						});
 					}
 				} catch (e) {
@@ -268,7 +273,7 @@ __WASM_EXEC_JS__
 					startButton.classList.remove("disabled");
 
 					const errors = {
-						1: "Unsupported volume: Reed-Solomon, splitting, or a legacy keyfile volume. Use the desktop app.",
+						1: "Unsupported volume: splitting, deniability, or a legacy keyfile volume. Use the desktop app.",
 						2: "Corrupted header, or a deniability volume (open those in the desktop app).",
 						3: "Incorrect password.",
 						4: "Data is modified or corrupted.",
@@ -305,6 +310,7 @@ __WASM_EXEC_JS__
 				keyfilesInput.value = "";
 				keyfilesDecInput.value = "";
 				keyfileOrderedInput.checked = false;
+				reedSolomonInput.checked = false;
 				statusText.innerHTML = "Completed!";
 				statusText.style.color = "#44b944";
 				selectedFile = null;
