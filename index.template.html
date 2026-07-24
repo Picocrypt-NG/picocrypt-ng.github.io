@@ -124,11 +124,7 @@ __WASM_EXEC_JS__
 				<textarea id="comments" placeholder="Comments (optional)" maxlength="99999"
 					style="width:300px;height:54px;box-sizing:border-box;padding:4px 8px;border:none;border-radius:6px;outline:none;background-color:#30343c;color:#f5deb3;font-size:14px;font-family:inherit;resize:vertical;"></textarea>
 				<p style="font-size:11px;opacity:0.5;margin:4px 0 0;">Comments are stored <b>unencrypted</b> in the file.</p>
-				<label style="display:block;font-size:14px;margin:8px 0 6px;cursor:pointer;">Keyfiles (optional)</label>
-				<input type="file" id="keyfiles" multiple style="width:300px;font-size:13px;color:#f5deb3;">
-				<label style="display:block;font-size:14px;margin:6px 0;cursor:pointer;">
-					<input type="checkbox" id="keyfileOrdered"> Require correct keyfile order
-				</label>
+				<p id="keyfileWriterPolicy" style="font-size:11px;opacity:0.5;margin:8px 0 6px;">New v2 volumes with keyfiles are disabled pending a reviewed v3 format. Existing v2 keyfile volumes can still be decrypted here; legacy v1 keyfile volumes require the desktop app.</p>
 				<label style="display:block;font-size:14px;margin:6px 0;cursor:pointer;">
 					<input type="checkbox" id="reedSolomon"> Reed-Solomon (adds error correction, ~6% larger)
 				</label>
@@ -174,8 +170,7 @@ __WASM_EXEC_JS__
 			const paranoidInput = document.getElementById("paranoid");
 			const commentsInput = document.getElementById("comments");
 			const decComments = document.getElementById("decComments");
-			const keyfilesInput = document.getElementById("keyfiles");
-			const keyfileOrderedInput = document.getElementById("keyfileOrdered");
+			const keyfileWritesDisabledMessage = document.getElementById("keyfileWriterPolicy").textContent;
 			const reedSolomonInput = document.getElementById("reedSolomon");
 			const deniabilityInput = document.getElementById("deniability");
 			const decKeyfiles = document.getElementById("decKeyfiles");
@@ -221,8 +216,8 @@ __WASM_EXEC_JS__
 				const isDecrypt = selectedFile && selectedFile.name.endsWith(".pcv");
 				
 				if (isDecrypt) {
-					// For decryption, only need password
-					if (pwd.length > 0 && wasmReady) {
+					// Legacy v2 keyfile-only volumes intentionally have no password.
+					if ((pwd.length > 0 || keyfilesDecInput.files.length > 0) && wasmReady) {
 						startButton.classList.remove("disabled");
 					} else {
 						startButton.classList.add("disabled");
@@ -239,6 +234,7 @@ __WASM_EXEC_JS__
 
 			passwordInput.oninput = checkPasswords;
 			confirmInput.oninput = checkPasswords;
+			keyfilesDecInput.onchange = checkPasswords;
 
 			// Process file
 			startButton.onclick = async () => {
@@ -267,14 +263,12 @@ __WASM_EXEC_JS__
 						const kf = await readKeyfiles(keyfilesDecInput);
 						res = picocryptDecrypt({ data: fileData, password: password, keyfiles: kf, forceDecrypt: forceDecryptInput.checked });
 					} else {
-						const kf = await readKeyfiles(keyfilesInput);
 						res = picocryptEncrypt({
 							data: fileData, password: password,
 							paranoid: paranoidInput.checked, comments: commentsInput.value,
-							keyfiles: kf, keyfileOrdered: keyfileOrderedInput.checked,
 							reedSolomon: reedSolomonInput.checked,
-						deniability: deniabilityInput.checked
-					});
+							deniability: deniabilityInput.checked
+						});
 					}
 				} catch (e) {
 					console.error(e);
@@ -289,7 +283,7 @@ __WASM_EXEC_JS__
 					startButton.classList.remove("disabled");
 
 					const errors = {
-						1: "Unsupported volume: splitting or a legacy keyfile volume. Use the desktop app.",
+						1: "Unsupported volume: split chunk, unsupported version or feature, or legacy v1 keyfile volume. The desktop app may support it.",
 						2: "Corrupted or incomplete header.",
 						3: "Incorrect password.",
 						4: "Data is modified or corrupted.",
@@ -298,7 +292,10 @@ __WASM_EXEC_JS__
 						7: "This volume requires keyfiles. Add them under Advanced and try again.",
 						8: "Incorrect keyfiles for this volume.",
 						9: "Those keyfiles cancel out (duplicate). Use distinct keyfiles.",
-						10: "Decrypted but NOT verified — data may be corrupted or tampered."
+						10: "Decrypted but NOT verified — data may be corrupted or tampered.",
+						11: "Deniability requires a non-empty password.",
+						12: keyfileWritesDisabledMessage,
+						13: "Encryption requires a non-empty password."
 					};
 					statusText.textContent = errors[res ? res.code : -1] || "Unknown error.";
 					statusText.style.color = "#db2828";
@@ -329,9 +326,7 @@ __WASM_EXEC_JS__
 				confirmInput.value = "";
 				commentsInput.value = "";
 				paranoidInput.checked = false;
-				keyfilesInput.value = "";
 				keyfilesDecInput.value = "";
-				keyfileOrderedInput.checked = false;
 				reedSolomonInput.checked = false;
 				deniabilityInput.checked = false;
 				statusText.textContent = "Completed!";
