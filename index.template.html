@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+<!-- Picocrypt NG build: __PICOCRYPT_BUILD__ -->
 <html lang="en">
 <head>
 	<title>Picocrypt NG</title>
 	<meta charset="UTF-8">
 	<meta name="robots" content="noindex,nofollow">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests;">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; worker-src blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests;">
 	<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDAiIGhlaWdodD0iMTQwIiBvdmVyZmxvdz0iaGlkZGVuIj48ZGVmcz48Y2xpcFBhdGggaWQ9IkEiPjxwYXRoIGQ9Ik0xNDMgMTE4aDE0MHYxNDBIMTQzeiIvPjwvY2xpcFBhdGg+PGxpbmVhckdyYWRpZW50IHgxPSIxNDMiIHkxPSIxODgiIHgyPSIyODMiIHkyPSIxODgiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBzcHJlYWRNZXRob2Q9InBhZCIgaWQ9IkIiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzAwZjJmZSIvPjxzdG9wIG9mZnNldD0iLjAyMSIgc3RvcC1jb2xvcj0iIzAzZWZmZSIvPjxzdG9wIG9mZnNldD0iLjI5MyIgc3RvcC1jb2xvcj0iIzI0ZDJmZSIvPjxzdG9wIG9mZnNldD0iLjU1NCIgc3RvcC1jb2xvcj0iIzNjYmRmZSIvPjxzdG9wIG9mZnNldD0iLjc5NiIgc3RvcC1jb2xvcj0iIzRhYjBmZSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzRmYWNmZSIvPjwvbGluZWFyR3JhZGllbnQ+PGZpbHRlciBpZD0iaHVlUm90YXRlMjcwIj48ZmVDb2xvck1hdHJpeCB0eXBlPSJodWVSb3RhdGUiIHZhbHVlcz0iMjcwIi8+PC9maWx0ZXI+PC9kZWZzPjxnIGNsaXAtcGF0aD0idXJsKCNBKSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTE0MyAtMTE4KSI+PHBhdGggZD0iTTIzMy43ODEgMTU2LjI5NmMwLTQuODMyIDMuOTE4LTguNzUgOC43NS04Ljc1YTguNzUgOC43NSAwIDEgMSAwIDE3LjUgOC43NSA4Ljc1IDAgMCAxLTguNzUtOC43NXpNMTc4IDI1Mi41MTN2LTkuODQ0aDkuODQ0YTUuNDcgNS40NyAwIDAgMCA1LjQ2OC01LjQ2OXYtOS44NDNoOS44NDRhNS40NyA1LjQ3IDAgMCAwIDUuNDY5LTUuNDY5IDUuNDcgNS40NyAwIDAgMC01LjQ2OS01LjQ2OWgtMTUuMzEyYTUuNDcgNS40NyAwIDAgMC01LjQ2OSA1LjQ2OXY5Ljg0NGgtOS44NDRhNS40NyA1LjQ3IDAgMCAwLTUuNDY5IDUuNDY5djkuODQzaC0xMy4xMjR2LTE2LjMyOGw0OC40OTQtNDguNDk1YTUuNDcgNS40NyAwIDAgMCAuODA5LTYuNzA0IDg4LjUzIDg4LjUzIDAgMCAxLTUuMTc0LTkuOTIyYy0xLjgwNC00LjA1OC0uODg1LTguOTA2IDIuMjg4LTEyLjA2M2wyMS40NzUtMjEuMzc1YzMuMDY1LTMuMDUxIDcuNjU5LTQuMDI0IDExLjcwMi0yLjQ3OSA2LjM1IDIuNDI3IDE1LjUwMSA2Ljg5NCAyMy4wMzkgMTQuMzk3IDcuNTg0IDcuNTQ4IDEyLjIwMSAxNi44MzQgMTQuNzM4IDIzLjI5NmExMC44NiAxMC44NiAwIDAgMS0yLjQ1MSAxMS42NzJsLTIxLjczNSAyMS42MzNjLTMuMTY0IDMuMTUtNy44ODkgNC4wNy0xMi4wMzUgMi4zNDYtMy40Mi0xLjQyMy02LjczMi0zLjExMi05Ljg0NC01LjAyMmE1LjQ3IDUuNDcgMCAwIDAtNy41MjEgMS44IDUuNDcgNS40NyAwIDAgMCAxLjggNy41MjJjMy41OTYgMi4yMDcgNy40MiA0LjE1OCAxMS4zNjQgNS43OTggOC4yNDIgMy40MjkgMTcuNjQzIDEuNTg2IDIzLjk1Mi00LjY5MmwyMS43MzQtMjEuNjMyYzYuMTY1LTYuMTM2IDguMDk1LTE1LjMzIDQuOTE3LTIzLjQyMy0yLjkyMS03LjQzNS04LjI3Ni0xOC4xNjUtMTcuMjA0LTI3LjA1LTguODk2LTguODU1LTE5LjUxMS0xNC4wNTctMjYuODUtMTYuODYyYTIxLjk5IDIxLjk5IDAgMCAwLTIzLjMyMyA0Ljk0NGwtMjEuNDc1IDIxLjM3NWMtNi4zNjYgNi4zMzYtOC4yIDE2LjA4NS00LjU2NiAyNC4yNTkgMS4xMjcgMi41MzUgMi4zNTMgNS4wMTUgMy42NjMgNy40MTFsLTQ3LjEzMyA0Ny4xMzNhNS40NyA1LjQ3IDAgMCAwLTEuNjAyIDMuODY4djI0LjA2MmE1LjQ3IDUuNDcgMCAwIDAgNS40NjkgNS40NjloMjQuMDYyYTUuNDcgNS40NyAwIDAgMCA1LjQ2OS01LjQ2OXoiIGZpbGw9InVybCgjQikiIGZpbHRlcj0idXJsKCNodWVSb3RhdGUyNzApIi8+PC9nPjwvc3ZnPg==">
 	<style>
 		*{
@@ -13,14 +14,17 @@
 			color:#f5deb3;
 			user-select:none;
 		}
+		[hidden]{ display:none !important; }
 		body{
 			margin:0;
-			padding:0;
+			padding:20px 0;
+			box-sizing:border-box;
 			display:flex;
+			flex-direction:column;
 			justify-content:center;
 			align-items:center;
 			width:100vw;
-			height:100vh;
+			min-height:100vh;
 			background-color:#1d1f21;
 		}
 		body > div{
@@ -29,7 +33,7 @@
 			align-items:center;
 			width:320px;
 		}
-		body > div > div{
+		body > div > button{
 			display:flex;
 			align-items:center;
 			justify-content:center;
@@ -40,16 +44,18 @@
 			background-color:#30343c;
 			border-radius:6px;
 			font-size:17px;
+			border:none;
+			font-family:inherit;
 			cursor:pointer;
 		}
-		body > div > div > p{
+		body > div > button > span{
 			text-overflow:ellipsis;
 			white-space:nowrap;
 			overflow:hidden;
 			width:80%;
 			text-align:center;
 		}
-		input[type="password"]{
+		input[type="password"], input[type="text"], select{
 			width:300px;
 			height:32px;
 			box-sizing:border-box;
@@ -84,9 +90,7 @@
 			pointer-events:none;
 		}
 		#footer{
-			position:absolute;
-			bottom:0;
-			left:0;
+			margin:24px 0 0;
 			width:100vw;
 			font-size:14px;
 			text-align:center;
@@ -105,16 +109,91 @@
 			margin-bottom:8px;
 		}
 	</style>
-	<script>
+	<script id="wasm-worker" type="text/plain">
 __WASM_EXEC_JS__
+		(async () => {
+			"use strict";
+			try {
+				const go = new Go();
+				go.env = { GOMAXPROCS: "1" };
+				const wasmBase64 = "__WASM_BASE64__";
+				const binary = Uint8Array.from(atob(wasmBase64), c => c.charCodeAt(0));
+				const { instance } = await WebAssembly.instantiate(binary, go.importObject);
+				binary.fill(0);
+				go.run(instance).then(() => postMessage({ type: "engine-error" }), () => postMessage({ type: "engine-error" }));
+				const capabilities = typeof picocryptCapabilities === "function" ? picocryptCapabilities() : {};
+				const supportsPCV3 = capabilities.pcv3 === true && Number.isSafeInteger(capabilities.apiVersion) && capabilities.apiVersion >= 3;
+				const exceedsLimit = (size, limit) => Number.isSafeInteger(limit) && limit >= 0 && size > limit;
+				self.onmessage = async ({ data: request }) => {
+					if ((!request.isDecrypt || request.options.pcv3D1) && !supportsPCV3) {
+						postMessage({ type: "result", result: { code: 1 } });
+						return;
+					}
+					let input, result, message;
+					const keyfiles = [];
+					let phase = "read";
+					try {
+						let limited = exceedsLimit(request.keyfiles.length, capabilities.maxKeyfiles);
+						if (!limited) {
+							let totalKeyfileBytes = 0;
+							for (const file of request.keyfiles) totalKeyfileBytes += file.size;
+							limited = !Number.isSafeInteger(totalKeyfileBytes) || exceedsLimit(totalKeyfileBytes, capabilities.maxKeyfileBytes);
+						}
+						if (!limited) {
+							let limit = capabilities.maxPlaintextBytes;
+							if (request.isDecrypt) {
+								let normalPCV3 = false;
+								if (!request.options.pcv3D1) {
+									const prefix = new Uint8Array(await request.file.slice(0, 4).arrayBuffer());
+									normalPCV3 = prefix.length === 4 && prefix[0] === 0x50 && prefix[1] === 0x43 && prefix[2] === 0x56 && prefix[3] === 0;
+									prefix.fill(0);
+								}
+								limit = request.options.pcv3D1 || normalPCV3 ? capabilities.maxPCV3VolumeBytes : capabilities.maxLegacyVolumeBytes;
+							}
+							limited = exceedsLimit(request.file.size, limit);
+						}
+						if (limited) {
+							result = { code: 14 };
+						} else {
+							input = new Uint8Array(await request.file.arrayBuffer());
+							for (const file of request.keyfiles) keyfiles.push(new Uint8Array(await file.arrayBuffer()));
+							phase = "engine";
+							const { pcv3D1, ...parameters } = request.options;
+							const options = { ...parameters, data: input, keyfiles };
+							if (request.isDecrypt && pcv3D1) options.pcv3Mode = options.forceDecrypt ? 6 : 2;
+							result = request.isDecrypt ? picocryptDecrypt(options) : picocryptEncrypt(options);
+						}
+						message = { type: "result", result };
+					} catch {
+						message = { type: "result", error: phase };
+					} finally {
+						input?.fill(0);
+						for (const keyfile of keyfiles) keyfile.fill(0);
+					}
+					// Clean inputs before the UI can receive a result and terminate us.
+					try {
+						postMessage(message, result?.data ? [result.data.buffer] : []);
+					} catch {
+						postMessage({ type: "engine-error" });
+					} finally {
+						if (result?.data?.byteLength) result.data.fill(0);
+					}
+				};
+				postMessage({ type: "ready", pcv3: supportsPCV3, capabilities });
+			} catch {
+				postMessage({ type: "engine-error" });
+			}
+		})();
 	</script>
 </head>
 <body>
 	<input id="fin" type="file" style="display:none;">
 	<div>
-		<div><p>Click here to select a file.</p></div>
-		<input type="password" id="password" class="disabled" placeholder="Password" autocomplete="off"><br>
-		<input type="password" id="cpassword" class="disabled" placeholder="Confirm" autocomplete="off"><br>
+		<button id="chooseFile" type="button"><span id="fileLabel">Click here to select a file.</span></button>
+		<label for="operation" style="width:300px;font-size:14px;">Operation</label>
+		<select id="operation" disabled><option value="encrypt">Encrypt (PCV3)</option><option value="decrypt">Decrypt</option></select>
+		<input type="password" id="password" class="disabled" disabled placeholder="Password" autocomplete="off"><br>
+		<input type="password" id="cpassword" class="disabled" disabled placeholder="Confirm" autocomplete="off"><br>
 		<details id="advanced" style="width:300px;margin-bottom:12px;">
 			<summary style="cursor:pointer;font-size:14px;opacity:0.7;">Advanced</summary>
 			<div id="encOptions" style="margin-top:8px;">
@@ -124,15 +203,20 @@ __WASM_EXEC_JS__
 				<textarea id="comments" placeholder="Comments (optional)" maxlength="99999"
 					style="width:300px;height:54px;box-sizing:border-box;padding:4px 8px;border:none;border-radius:6px;outline:none;background-color:#30343c;color:#f5deb3;font-size:14px;font-family:inherit;resize:vertical;"></textarea>
 				<p style="font-size:11px;opacity:0.5;margin:4px 0 0;">Comments are stored <b>unencrypted</b> in the file.</p>
-				<p id="keyfileWriterPolicy" style="font-size:11px;opacity:0.5;margin:8px 0 6px;">New v2 volumes with keyfiles are disabled pending a reviewed v3 format. Existing v2 keyfile volumes can still be decrypted here; legacy v1 keyfile volumes require the desktop app.</p>
+				<label for="keyfilesEnc" style="display:block;font-size:14px;margin:8px 0 6px;">Keyfiles (optional, with or without a password)</label>
+				<input type="file" id="keyfilesEnc" multiple style="width:300px;font-size:13px;color:#f5deb3;">
 				<label style="display:block;font-size:14px;margin:6px 0;cursor:pointer;">
 					<input type="checkbox" id="reedSolomon"> Reed-Solomon (adds error correction, ~6% larger)
 				</label>
 				<label style="display:block;margin-top:8px;cursor:pointer;" title="Hides that this file is a Picocrypt volume — it looks like random data. Only use this if you know what it does. The file cannot be auto-detected as encrypted.">
-					<input type="checkbox" id="deniability"> Deniability (disguise as random data)
+					<input type="checkbox" id="deniability"> Deniable PCV3 (D1)
+				</label>
+				<label id="outputNameLabel" hidden style="display:block;font-size:14px;margin-top:8px;">Output filename
+					<input type="text" id="outputName" placeholder="Choose a filename" style="margin-top:4px;">
 				</label>
 			</div>
 			<div id="decKeyfiles" style="display:none;margin-top:8px;">
+				<label style="display:block;font-size:14px;margin-bottom:8px;cursor:pointer;"><input type="checkbox" id="pcv3D1"> Deniable PCV3 (D1)</label>
 				<label style="display:block;font-size:14px;margin-bottom:6px;cursor:pointer;">Keyfiles (if this volume uses them)</label>
 				<input type="file" id="keyfilesDec" multiple style="width:300px;font-size:13px;color:#f5deb3;">
 				<label style="display:block;font-size:14px;margin:8px 0 6px;cursor:pointer;">
@@ -140,28 +224,26 @@ __WASM_EXEC_JS__
 				</label>
 			</div>
 		</details>
-		<input type="submit" id="start" class="disabled" value="Start">
-		<p id="status" class="disabled" style="margin:0;font-size:16px;">Ready.</p>
+		<input type="submit" id="start" class="disabled" disabled value="Start">
+		<p id="status" role="status" aria-live="polite" style="margin:0;font-size:16px;">Loading encryption engine...</p>
 		<p id="decComments" style="margin:4px 0 0;font-size:13px;opacity:0.7;"></p>
-		<p id="notice">Argon2 uses 1 GiB RAM. May take 5-10 seconds.</p>
+		<p id="notice">Files are processed in memory. Argon2 alone uses 1 GiB RAM.</p>
 	</div>
-	<p id="footer"><a href="https://github.com/picocrypt-ng/Picocrypt-NG">What is Picocrypt NG?</a> <a href="https://github.com/picocrypt-ng/Picocrypt-NG/releases/tag/__PICOCRYPT_VERSION__">v__PICOCRYPT_VERSION__</a></p>
+	<p id="footer"><a href="https://github.com/picocrypt-ng/Picocrypt-NG">What is Picocrypt NG?</a> <a href="__PICOCRYPT_RELEASE_URL__">v__PICOCRYPT_VERSION__</a></p>
 	<script>
 		(() => {
 			"use strict";
 
-			if (!WebAssembly || !WebAssembly.instantiate || !window.crypto || !window.crypto.getRandomValues) {
-				document.body.innerHTML = "<h1>Unsupported browser!</h1>";
+			if (typeof WebAssembly !== "object" || !WebAssembly.instantiate ||
+				typeof Worker !== "function" || !window.crypto?.getRandomValues) {
+				document.body.textContent = "Unsupported browser!";
 				return;
 			}
 
-			let wasmReady = false;
-			let selectedFile = null;
-
-			// UI elements
 			const fileInput = document.getElementById("fin");
-			const fileBox = document.querySelector("body > div > div");
-			const fileLabel = document.querySelector("body > div > div > p");
+			const fileBox = document.getElementById("chooseFile");
+			const fileLabel = document.getElementById("fileLabel");
+			const operationInput = document.getElementById("operation");
 			const passwordInput = document.getElementById("password");
 			const confirmInput = document.getElementById("cpassword");
 			const startButton = document.getElementById("start");
@@ -170,184 +252,246 @@ __WASM_EXEC_JS__
 			const paranoidInput = document.getElementById("paranoid");
 			const commentsInput = document.getElementById("comments");
 			const decComments = document.getElementById("decComments");
-			const keyfileWritesDisabledMessage = document.getElementById("keyfileWriterPolicy").textContent;
 			const reedSolomonInput = document.getElementById("reedSolomon");
 			const deniabilityInput = document.getElementById("deniability");
 			const decKeyfiles = document.getElementById("decKeyfiles");
 			const keyfilesDecInput = document.getElementById("keyfilesDec");
+			const keyfilesEncInput = document.getElementById("keyfilesEnc");
+			const pcv3D1Input = document.getElementById("pcv3D1");
+			const outputNameInput = document.getElementById("outputName");
+			const outputNameLabel = document.getElementById("outputNameLabel");
+			const notice = document.getElementById("notice");
 			const forceDecryptInput = document.getElementById("forceDecrypt");
-
-			async function readKeyfiles(input) {
-				const out = [];
-				for (const f of input.files) out.push(new Uint8Array(await f.arrayBuffer()));
-				return out;
-			}
-
-			// File selection
-			fileBox.onclick = () => fileInput.click();
-			fileInput.onchange = function() {
-				if (this.files.length > 0) {
-					selectedFile = this.files[0];
-					if (selectedFile.size > 1024 * 1024 * 1024) { // 1 GiB
-						statusText.textContent = "File must be less than 1 GiB!";
-						statusText.style.color = "#db2828";
-						selectedFile = null;
-						passwordInput.value = "";
-						confirmInput.value = "";
-						return;
-					}
-					fileLabel.textContent = selectedFile.name;
-					const isDecrypt = selectedFile.name.endsWith(".pcv");
-					encOptions.style.display = isDecrypt ? "none" : "block";
-					decKeyfiles.style.display = isDecrypt ? "block" : "none";
-					decComments.textContent = "";
-					passwordInput.classList.remove("disabled");
-					if (!isDecrypt) confirmInput.classList.remove("disabled");
-					statusText.classList.remove("disabled");
-					passwordInput.focus();
-					checkPasswords();
-				}
+			const advancedControls = document.querySelectorAll("#advanced input, #advanced textarea");
+			const errors = {
+				1: "Unsupported volume or feature. The desktop app may support it.",
+				2: "Corrupted or incomplete header.",
+				3: "Incorrect password or keyfiles.",
+				4: "Data is modified or corrupted.",
+				5: "Unable to generate random values.",
+				6: "Invalid input.",
+				7: "This volume requires keyfiles. Add them under Advanced and try again.",
+				8: "Incorrect keyfiles for this volume.",
+				9: "Those keyfiles cancel out (duplicate). Use distinct keyfiles.",
+				11: "Deniability requires a non-empty password.",
+				12: "Legacy volume creation is unavailable. New volumes must use PCV3.",
+				13: "Encryption requires a password or at least one keyfile.",
+				14: "Not enough memory, or this file exceeds the browser limit. Use the desktop app.",
+				15: "Ambiguous volume. Use the desktop app to inspect it."
 			};
+			let worker = null, workerURL = null;
+			let bridgeCapabilities = {};
+			let wasmReady = false, pcv3Ready = false, busy = false, selectedFile = null, activeOperation = null;
+			let readyMessagePending = false;
 
-			// Password validation
-			function checkPasswords() {
-				const pwd = passwordInput.value;
-				const cpwd = confirmInput.value;
-				const isDecrypt = selectedFile && selectedFile.name.endsWith(".pcv");
-				
-				if (isDecrypt) {
-					// Legacy v2 keyfile-only volumes intentionally have no password.
-					if ((pwd.length > 0 || keyfilesDecInput.files.length > 0) && wasmReady) {
-						startButton.classList.remove("disabled");
-					} else {
-						startButton.classList.add("disabled");
-					}
-				} else {
-					// For encryption, need matching passwords
-					if (pwd.length > 0 && pwd === cpwd && wasmReady) {
-						startButton.classList.remove("disabled");
-					} else {
-						startButton.classList.add("disabled");
-					}
-				}
+			function status(message, failed = false) {
+				statusText.textContent = message;
+				statusText.style.color = failed ? "#db2828" : "#f5deb3";
 			}
 
-			passwordInput.oninput = checkPasswords;
-			confirmInput.oninput = checkPasswords;
-			keyfilesDecInput.onchange = checkPasswords;
-
-			// Process file
-			startButton.onclick = async () => {
-				if (!selectedFile || !wasmReady) return;
-
-				fileBox.classList.add("disabled");
-				passwordInput.classList.add("disabled");
-				confirmInput.classList.add("disabled");
-				startButton.classList.add("disabled");
-				decComments.textContent = "";
-				statusText.textContent = "Working... (Argon2 may take a while)";
-				statusText.style.color = "#f5deb3";
-
-				const fileData = new Uint8Array(await selectedFile.arrayBuffer());
-				// Security note: JavaScript strings cannot be securely zeroed in the
-				// browser heap. The Go/WASM side wipes its own copies, but residual
-				// password/plaintext data may linger in JS memory until GC.
-				const password = passwordInput.value;
-				const isDecrypt = selectedFile.name.endsWith(".pcv");
-
-				await new Promise(r => setTimeout(r, 100));
-
-				let res;
-				try {
-					if (isDecrypt) {
-						const kf = await readKeyfiles(keyfilesDecInput);
-						res = picocryptDecrypt({ data: fileData, password: password, keyfiles: kf, forceDecrypt: forceDecryptInput.checked });
-					} else {
-						res = picocryptEncrypt({
-							data: fileData, password: password,
-							paranoid: paranoidInput.checked, comments: commentsInput.value,
-							reedSolomon: reedSolomonInput.checked,
-							deniability: deniabilityInput.checked
-						});
-					}
-				} catch (e) {
-					console.error(e);
-					res = { code: -1 };
-				}
-
-				const kept = res && res.code === 10;
-				if (!res || (res.code !== 0 && !kept)) {
-					fileBox.classList.remove("disabled");
-					passwordInput.classList.remove("disabled");
-					if (!isDecrypt) confirmInput.classList.remove("disabled");
-					startButton.classList.remove("disabled");
-
-					const errors = {
-						1: "Unsupported volume: split chunk, unsupported version or feature, or legacy v1 keyfile volume. The desktop app may support it.",
-						2: "Corrupted or incomplete header.",
-						3: "Incorrect password.",
-						4: "Data is modified or corrupted.",
-						5: "Unable to generate random values.",
-						6: "Invalid input.",
-						7: "This volume requires keyfiles. Add them under Advanced and try again.",
-						8: "Incorrect keyfiles for this volume.",
-						9: "Those keyfiles cancel out (duplicate). Use distinct keyfiles.",
-						10: "Decrypted but NOT verified — data may be corrupted or tampered.",
-						11: "Deniability requires a non-empty password.",
-						12: keyfileWritesDisabledMessage,
-						13: "Encryption requires a non-empty password."
-					};
-					statusText.textContent = errors[res ? res.code : -1] || "Unknown error.";
-					statusText.style.color = "#db2828";
-					passwordInput.value = "";
-					confirmInput.value = "";
-					return;
-				}
-
-				const outputData = res.data;
-				const blob = new Blob([outputData]);
-				const a = document.createElement("a");
-				a.href = URL.createObjectURL(blob);
-				a.download = isDecrypt ? selectedFile.name.replace(".pcv", "") : selectedFile.name + ".pcv";
-				document.body.appendChild(a);
-				a.click();
-				a.remove();
-				URL.revokeObjectURL(a.href);
-
-				if (isDecrypt && res.comments) {
-					decComments.textContent = "Comments: " + res.comments;
-				}
-
-				fileLabel.textContent = "Click here to select a file.";
-				// Re-enable the file box so a new operation can start without a page
-				// reload (the error path already does this; the success path must too).
-				fileBox.classList.remove("disabled");
+			function clearCredentials() {
 				passwordInput.value = "";
 				confirmInput.value = "";
-				commentsInput.value = "";
-				paranoidInput.checked = false;
 				keyfilesDecInput.value = "";
-				reedSolomonInput.checked = false;
-				deniabilityInput.checked = false;
-				statusText.textContent = "Completed!";
-				statusText.style.color = "#44b944";
-					forceDecryptInput.checked = false;
-					if (kept) {
-						statusText.textContent = "Decrypted, but NOT verified — output may be corrupted.";
-						statusText.style.color = "#db2828";
-					}
-				selectedFile = null;
-			};
+				keyfilesEncInput.value = "";
+			}
 
-			// Load WASM
-			const go = new Go();
-			const wasmBase64 = "__WASM_BASE64__";
-			const wasmBinary = Uint8Array.from(atob(wasmBase64), c => c.charCodeAt(0));
-			WebAssembly.instantiate(wasmBinary, go.importObject).then(result => {
-				go.run(result.instance);
-				wasmReady = true;
-				checkPasswords();
+			function updateControls() {
+				const isDecrypt = operationInput.value === "decrypt";
+				fileInput.disabled = fileBox.disabled = busy;
+				operationInput.disabled = busy || !selectedFile;
+				passwordInput.disabled = busy || !selectedFile;
+				confirmInput.disabled = busy || !selectedFile || isDecrypt;
+				confirmInput.hidden = isDecrypt;
+				for (const input of advancedControls) input.disabled = busy;
+				encOptions.style.display = isDecrypt ? "none" : "block";
+				decKeyfiles.style.display = isDecrypt ? "block" : "none";
+				outputNameLabel.hidden = isDecrypt || !deniabilityInput.checked;
+				commentsInput.disabled = busy || (!isDecrypt && deniabilityInput.checked);
+				const credentialsValid = isDecrypt
+					? passwordInput.value.length > 0 || keyfilesDecInput.files.length > 0
+					: (passwordInput.value.length > 0 || keyfilesEncInput.files.length > 0) && passwordInput.value === confirmInput.value;
+				const name = outputNameInput.value;
+				const filenameValid = isDecrypt || !deniabilityInput.checked || (name.trim().length > 0 && !/[/\\\x00]/.test(name) && name !== "." && name !== "..");
+				const supported = isDecrypt ? !pcv3D1Input.checked || pcv3Ready : pcv3Ready;
+				startButton.disabled = busy || !selectedFile || !wasmReady || !supported || !credentialsValid || !filenameValid;
+				startButton.classList.toggle("disabled", startButton.disabled);
+				passwordInput.classList.toggle("disabled", passwordInput.disabled);
+				confirmInput.classList.toggle("disabled", confirmInput.disabled);
+				let limit = bridgeCapabilities.maxPlaintextBytes;
+				if (isDecrypt) limit = pcv3D1Input.checked ? bridgeCapabilities.maxPCV3VolumeBytes : null;
+				notice.textContent = "Files are processed in memory. Argon2 alone uses 1 GiB RAM.";
+				if (Number.isSafeInteger(limit) && limit > 0) {
+					notice.textContent += " PCV3 " + (isDecrypt ? "volume" : "input") + " limit: " + (limit / (1024 * 1024)).toLocaleString(undefined, { maximumFractionDigits: 1 }) + " MiB.";
+				}
+			}
+
+			function stopWorker() {
+				if (worker) {
+					worker.onmessage = worker.onerror = worker.onmessageerror = null;
+					worker.terminate();
+				}
+				worker = null;
+				if (workerURL) URL.revokeObjectURL(workerURL);
+				workerURL = null;
+				wasmReady = false;
+				pcv3Ready = false;
+				bridgeCapabilities = {};
+			}
+
+			function engineFailed() {
+				stopWorker();
+				readyMessagePending = false;
+				busy = false;
+				activeOperation = null;
+				clearCredentials();
+				status("Unable to load the encryption engine. Reload the page to try again.", true);
+				updateControls();
+			}
+
+			function loadWorker(initial = false) {
+				stopWorker();
+				if (initial) readyMessagePending = true;
+				try {
+					workerURL = URL.createObjectURL(new Blob([document.getElementById("wasm-worker").textContent], { type: "text/javascript" }));
+					worker = new Worker(workerURL);
+					worker.onerror = event => { event.preventDefault(); engineFailed(); };
+					worker.onmessageerror = engineFailed;
+					worker.onmessage = event => {
+						if (event.data.type === "ready") {
+							wasmReady = true;
+							pcv3Ready = event.data.pcv3 === true;
+							bridgeCapabilities = event.data.capabilities;
+							if (readyMessagePending) status(pcv3Ready ? "Ready." : "Ready for legacy decryption. PCV3 creation is unavailable in this engine.");
+							readyMessagePending = false;
+							updateControls();
+						} else if (event.data.type === "result") {
+							finishOperation(event.data);
+						} else {
+							engineFailed();
+						}
+					};
+				} catch {
+					engineFailed();
+				}
+			}
+
+			function finishOperation(message) {
+				const operation = activeOperation;
+				const result = message.result;
+				stopWorker();
+				try {
+					if (message.error) {
+						status(message.error === "read" ? "Could not read the selected file or keyfile. Select it again and retry." : "The encryption engine failed. Try again.", true);
+					} else if (!result || (result.code !== 0 && result.code !== 10)) {
+						status(errors[result?.code] || "Unknown error.", true);
+					} else if (!(result.data instanceof Uint8Array)) {
+						status("The encryption engine returned invalid output.", true);
+					} else {
+						const blob = new Blob([result.data]);
+						const downloadURL = URL.createObjectURL(blob);
+						const anchor = document.createElement("a");
+						try {
+							anchor.href = downloadURL;
+							anchor.download = operation.outputName;
+							document.body.appendChild(anchor);
+							anchor.click();
+						} finally {
+							anchor.remove();
+							// Let the browser consume the URL before releasing its Blob reference.
+							setTimeout(() => URL.revokeObjectURL(downloadURL), 1000);
+						}
+						if (operation.isDecrypt && result.comments) decComments.textContent = "Comments: " + result.comments;
+						selectedFile = null;
+						fileLabel.textContent = "Click here to select a file.";
+						commentsInput.value = "";
+						paranoidInput.checked = reedSolomonInput.checked = deniabilityInput.checked = forceDecryptInput.checked = false;
+						pcv3D1Input.checked = false;
+						outputNameInput.value = "";
+						status(result.code === 10 ? "Decrypted, but NOT verified — output may be corrupted."
+							: result.recovered === true ? "Download started. Recovery was needed; keep the original encrypted file."
+							: "Download started.", result.code === 10);
+					}
+				} catch {
+					status("Could not start the download. Select the file and try again.", true);
+				} finally {
+					if (result?.data instanceof Uint8Array) result.data.fill(0);
+					clearCredentials();
+					fileInput.value = "";
+					activeOperation = null;
+					busy = false;
+					updateControls();
+					loadWorker();
+				}
+			}
+
+			fileBox.onclick = () => fileInput.click();
+			fileInput.onchange = () => {
+				if (busy || fileInput.files.length === 0) return;
+				readyMessagePending = false;
+				clearCredentials();
+				selectedFile = fileInput.files[0];
+				if (selectedFile.size > 1024 * 1024 * 1024) {
+					selectedFile = null;
+					fileInput.value = "";
+					fileLabel.textContent = "Click here to select a file.";
+					status("Select a file of at most 1 GiB.", true);
+				} else {
+					fileLabel.textContent = selectedFile.name;
+					operationInput.value = selectedFile.name.endsWith(".pcv") ? "decrypt" : "encrypt";
+					pcv3D1Input.checked = forceDecryptInput.checked = false;
+					outputNameInput.value = "";
+					decComments.textContent = "";
+					status(wasmReady ? "Ready." : "Loading encryption engine...");
+					readyMessagePending = !wasmReady;
+				}
+				updateControls();
+				if (selectedFile) passwordInput.focus();
+			};
+			passwordInput.oninput = confirmInput.oninput = outputNameInput.oninput = keyfilesDecInput.onchange = keyfilesEncInput.onchange = pcv3D1Input.onchange = updateControls;
+			operationInput.onchange = () => { clearCredentials(); decComments.textContent = ""; updateControls(); };
+			deniabilityInput.onchange = () => { if (deniabilityInput.checked) commentsInput.value = ""; updateControls(); };
+			startButton.onclick = () => {
+				updateControls();
+				if (startButton.disabled) return;
+				const isDecrypt = operationInput.value === "decrypt";
+				const selectedKeyfiles = (isDecrypt ? keyfilesDecInput : keyfilesEncInput).files;
+				if (Number.isSafeInteger(bridgeCapabilities.maxKeyfiles) && selectedKeyfiles.length > bridgeCapabilities.maxKeyfiles) {
+					clearCredentials();
+					fileInput.value = "";
+					status(errors[14], true);
+					updateControls();
+					return;
+				}
+				// Snapshot controls before asynchronous reads. JS strings cannot be securely wiped.
+				const request = {
+					isDecrypt, file: selectedFile, keyfiles: Array.from(selectedKeyfiles),
+					options: { password: passwordInput.value, paranoid: paranoidInput.checked,
+						comments: commentsInput.value, reedSolomon: reedSolomonInput.checked,
+						deniability: !isDecrypt && deniabilityInput.checked, pcv3D1: isDecrypt && pcv3D1Input.checked, forceDecrypt: forceDecryptInput.checked }
+				};
+				const outputName = isDecrypt
+					? (selectedFile.name.endsWith(".pcv") ? selectedFile.name.slice(0, -4) || "decrypted.bin" : selectedFile.name + ".decrypted")
+					: deniabilityInput.checked ? outputNameInput.value : selectedFile.name + ".pcv";
+				activeOperation = { isDecrypt, outputName };
+				busy = true;
+				clearCredentials();
+				decComments.textContent = "";
+				status("Working... (Argon2 may take a while)");
+				updateControls();
+				try { worker.postMessage(request); }
+				catch { finishOperation({ error: "engine" }); }
+			};
+			window.addEventListener("pagehide", () => {
+				clearCredentials();
+				stopWorker();
+				busy = false;
+				activeOperation = null;
+				updateControls();
 			});
+			window.addEventListener("pageshow", event => { if (event.persisted) loadWorker(true); });
+			updateControls();
+			loadWorker(true);
 		})();
 	</script>
 </body>
