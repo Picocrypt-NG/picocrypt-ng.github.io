@@ -24,12 +24,16 @@ after(async () => {
   if (server) await new Promise(resolve => server.close(resolve));
 });
 
-// Frozen legacy expectations come from the upstream golden fixtures, not from
-// encrypting data with the reader under test. Each case uses the production KDF.
+// Frozen legacy inputs use the literal plaintext recorded in fixtures/README.md.
+// Each case uses the production KDF.
 for (const fixture of [
-  { file: "pico_test_v1.txt.pcv", password: "test", heartbeat: true },
+  { file: "pico_test_v1.txt.pcv", password: "test", heartbeat: true,
+    commentPanel: "Legacy v1 does not authenticate the header or comment." },
   { file: "pico_test_v2.txt.pcv", password: "test" },
-  { file: "pico_test_v2_keyfile_only.txt.pcv", password: "", keyfile: "keyfile_alpha.bin" }
+  { file: "pico_test_v2_keyfile_only.txt.pcv", password: "", keyfile: "keyfile_alpha.bin",
+    commentPanel: "Legacy v2 header authentication uses only the password, even when keyfiles are required." },
+  { file: "pico_test_v2_comment.txt.pcv", password: "test",
+    commentPanel: "Authenticated comment: Public legacy v2 comment." }
 ]) {
   test(`the real browser downloads exact frozen plaintext from ${fixture.file}`, { timeout: 180000 }, async () => {
     const page = await browser.newPage();
@@ -62,6 +66,7 @@ for (const fixture of [
       assert.equal(download.suggestedFilename(), fixture.file.slice(0, -4));
       assert.equal(await download.failure(), null);
       assert.equal(await readFile(await download.path(), "utf8"), "There is a test file for Picocrypt validation.\n");
+      assert.equal(await page.locator("#decComments").textContent(), fixture.commentPanel ?? "");
       assert.equal(await page.locator("#password").inputValue(), "");
       assert.equal(await page.locator("#keyfilesDec").inputValue(), "");
       assert.equal(await page.locator("#fin").inputValue(), "");

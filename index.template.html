@@ -279,6 +279,10 @@ __WASM_EXEC_JS__
 				14: "Not enough memory, or this file exceeds the browser limit. Use the desktop app.",
 				15: "Ambiguous volume. Use the desktop app to inspect it."
 			};
+			const legacyWarnings = new Map([
+				["LEGACY_V1_UNAUTHENTICATED_HEADER", "Legacy v1 does not authenticate the header or comment."],
+				["LEGACY_V2_PASSWORD_ONLY_AUTHENTICATION", "Legacy v2 header authentication uses only the password, even when keyfiles are required."]
+			]);
 			let worker = null, workerURL = null;
 			let bridgeCapabilities = {};
 			let wasmReady = false, pcv3Ready = false, busy = false, selectedFile = null, activeOperation = null;
@@ -401,7 +405,18 @@ __WASM_EXEC_JS__
 							// Let the browser consume the URL before releasing its Blob reference.
 							setTimeout(() => URL.revokeObjectURL(downloadURL), 1000);
 						}
-						if (operation.isDecrypt && result.comments) decComments.textContent = "Comments: " + result.comments;
+						if (operation.isDecrypt) {
+							const warning = legacyWarnings.get(result.securityWarning);
+							let comment = "";
+							if (typeof result.comments === "string" && result.comments) {
+								let label = "Comments";
+								if (result.commentAuthenticity !== undefined) {
+									label = result.commentAuthenticity === "authenticated" ? "Authenticated comment" : "Unverified comment";
+								}
+								comment = label + ": " + result.comments;
+							}
+							decComments.textContent = [warning, comment].filter(Boolean).join(" ");
+						}
 						selectedFile = null;
 						fileLabel.textContent = "Click here to select a file.";
 						commentsInput.value = "";

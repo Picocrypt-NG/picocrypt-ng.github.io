@@ -11,7 +11,7 @@ the template to produce a single self-contained `index.html`:
 
 ```sh
 ./build.sh          # latest Picocrypt-NG release
-./build.sh 3.0      # the 3.0 release tag, once published
+./build.sh 3.0      # the public 3.0 release tag
 ./build.sh --local --output /tmp/picocrypt-web-preview.html
 ```
 
