@@ -1,0 +1,12 @@
+{
+  "name": "picocrypt-ng-web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test --test-concurrency=1 tests/browser.test.mjs tests/build.test.mjs",
+    "test:crypto": "node --test --test-concurrency=1 tests/crypto.test.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.61.1"
+  }
+}
